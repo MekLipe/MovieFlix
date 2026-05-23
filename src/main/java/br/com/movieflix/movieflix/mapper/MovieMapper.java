@@ -31,10 +31,10 @@ public class MovieMapper {
     public static MovieResponse toMovieResponse(Movie movie){
 
         List<CategoryResponse> categories = movie.getCategories().stream()
-                .map(category -> CategoryMapper.toCategoryResponse(category)).toList();
+                .map(CategoryMapper::toCategoryResponse).toList();
 
         List<StreamingResponse> streamings = movie.getStreamings().stream()
-                .map(streaming -> StreamingMapper.toStreamingResponse(streaming)).toList();
+                .map(StreamingMapper::toStreamingResponse).toList();
 
         return MovieResponse.builder()
                 .id(movie.getId())

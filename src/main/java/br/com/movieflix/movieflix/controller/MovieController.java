@@ -45,4 +45,25 @@ public class MovieController {
                 //ouEntao 404 não encontrado
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MovieResponse> AlterarMovie(@PathVariable Long id, @RequestBody MovieRequest request){
+        return movie_service.Atualizar(id, request)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<MovieResponse>> EncontrarFilmesPorCategoria(@RequestParam List<Long> categoriesID){
+        return ResponseEntity.ok(movie_service.ListarFilmesPorCategoria(categoriesID));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> DeletarFilme(@PathVariable Long id){
+        boolean deletado = movie_service.DeletarFilme(id);
+        if (deletado){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
