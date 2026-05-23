@@ -1,0 +1,17 @@
+# compose.yaml
+services:
+  db:
+    image: 'postgres:17'
+    container_name: movieflix-postgres-dev
+    environment:
+      - POSTGRES_DB=movieflix
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - '5432:5432'
+    volumes:
+      # Novo padrão recomendado: mapear a pasta pai
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:
